@@ -7,7 +7,7 @@ const initdb = async () =>
         console.log('jate database already exists');
         return;
       }
-      db.createObjectStore('jate', { keyPath: 'id', autoIncrement: true });
+      db.createObjectStore('texteditor', { keyPath: 'id', autoIncrement: true });
       console.log('jate database created');
     },
   });
@@ -22,10 +22,15 @@ export const putDb = async (content) => {
   // const result = await request;
   // console.log('🚀 - data saved to the database', result);
   console.log('PUT to the database');
+
   const jateDb = await openDB('jate', 1);
+
   const tx = jateDb.transaction('texteditor', 'readwrite');
+
   const store = tx.objectStore('texteditor');
-  const request = store.put({ id: id, code: content });
+
+  const request = store.put({ keyPath: 'id', content });
+
   const result = await request;
   if (!result) {
     console.error('putDb not implemented')
