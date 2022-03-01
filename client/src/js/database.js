@@ -50,7 +50,7 @@ export const getDb = async () => {
 
   const store = tx.objectStore('texteditor');
 
-  const request = store.getAll();
+  const request = store.get(1);
   console.log(request);
 
   const result = await request;
@@ -61,7 +61,7 @@ export const getDb = async () => {
     console.error('getDb not implemented')
   } else {
     console.log('🚀 - data saved to the database', result); 
-    return result[0].content;
+    return result.content;
   };
 }
 
