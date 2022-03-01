@@ -29,7 +29,7 @@ export const putDb = async (content) => {
 
   const store = tx.objectStore('texteditor');
 
-  const request = store.put({ keyPath: 'id', content });
+  const request = store.put({content, id: 1});
 
   const result = await request;
   if (!result) {
@@ -41,19 +41,26 @@ export const putDb = async (content) => {
 
 // TODO: Add logic for a method that gets all the content from the database
 export const getDb = async () => {
+
   console.log('GET all from the database');
+
   const jateDb = await openDB('jate', 1);
+
   const tx = jateDb.transaction('texteditor', 'readonly');
+
   const store = tx.objectStore('texteditor');
+
   const request = store.getAll();
+  console.log(request);
   const result = await request;
+
   console.log('result.value', result);
   // console.error('getDb not implemented');
   if (!result) {
     console.error('getDb not implemented')
   } else {
     console.log('🚀 - data saved to the database', result); 
-    return result;
+    return result[0].content;
   };
 }
 
