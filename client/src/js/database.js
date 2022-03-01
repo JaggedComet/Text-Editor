@@ -29,7 +29,7 @@ export const putDb = async (content) => {
 
   const store = tx.objectStore('texteditor');
 
-  const request = store.put({content, id: 0});
+  const request = store.put({content, id: 1});
 
   const result = await request;
   if (!result) {
@@ -52,6 +52,7 @@ export const getDb = async () => {
 
   const request = store.getAll();
   console.log(request);
+
   const result = await request;
 
   console.log('result.value', result);
